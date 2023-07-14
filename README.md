@@ -5,40 +5,25 @@ This repository provides an example of a custom widget for Thingsboard, a powerf
 ## Features
 
 - Real-time visualization: The widget provides live updates of power flow statistics, allowing users to monitor the data in real-time.
-
-- Customizable layout: Users can easily customize the widget's layout to suit their specific needs. The widget supports various customization options such as size, colors, and data representation.
-
 - User-friendly interface: The widget is designed with a user-friendly interface, making it intuitive and easy to use for both technical and non-technical users.
 
 ## Installation
 
 To install and use the Thingsboard custom widget, follow these steps:
 
-1. Clone or download this repository to your local machine.
+1. Download the txt files to your local machine.
 
-2. Access your Thingsboard instance and navigate to the widgets section.
+2. Access your Thingsboard instance and navigate to the widgets library.
 
-3. Click on "Import widget" and select the downloaded widget package file (e.g., `power-flow-widget.tbwidget`).
+3. Create a new widget bundle.
 
-4. Customize the widget's settings and appearance based on your preferences.
+4. Create a new latest value widget wthin the bundle.
 
-5. Save and deploy the widget to your Thingsboard dashboard.
+5. Copy the html code into the html section and the JS code into the Javascript section of the custom widget ide.
 
-6. Connect the widget to your inverter's power flow data source.
+6. Connect the widget to the desired data sources.
 
 7. Enjoy monitoring your inverter's power flow statistics in real-time!
-
-## Usage
-
-Once installed and configured, the custom widget provides a visually appealing and informative display of the power flow statistics for your inverter. The widget offers an intuitive interface that allows you to easily interpret and analyze the data.
-
-The widget supports the following key features:
-
-- Real-time updates: The widget automatically refreshes to display the most up-to-date power flow statistics.
-
-- Interactive charts: The widget includes interactive charts that enable you to zoom in, pan, and explore the data with ease.
-- - Customization options: You can customize the widget's appearance, including colors, chart types, and data representation, to match your preferences.
-- Responsive design: The widget adapts to different screen sizes, ensuring a consistent and optimized experience across devices.
 
 ## Contributing
 
