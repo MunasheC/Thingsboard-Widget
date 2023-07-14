@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .flowchart {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 10px;
+    }
+    
+    .blockGrid {
+      width: 125px;
+      height: 125px;
+      background-color: #f2f2f2;
+      border: 1px solid #ccc;
+      border-radius: 50%;
+      margin-bottom: 10px;
+      padding: 18px;
+    }
+    
+    .blockBatt {
+      width: 150px;
+      height: 50px;
+      background-color: #f2f2f2;
+      border: 1px solid #ccc;
+      margin-top: 50px;
+      padding: 18px;
+    }
+    
+    .blockAux {
+      width: 150px;
+      height: 50px;
+      background-color: #f2f2f2;
+      border: 1px solid #ccc;
+      margin-top: 10px;
+      padding: 18px;
+    }
+
+    
+    .blockPV {
+      width: 150px;
+      height: 50px;
+      background-color: #f2f2f2;
+      border: 1px solid #ccc;
+      margin-top: 10px;
+      margin-right: 50px; /* Added margin-right to create space to the right */
+      padding: 18px;
+    }
+    
+    .blockInv {
+      width: 150px;
+      height: 240px;
+      background-color: #f2f2f2;
+      border: 1px solid #ccc;
+      text-align: center;
+      line-height: 120px;
+      margin-top: -250px; /* Aligns the block to the bottom */
+      margin-left: 300px;
+    }
+    
+    .blockEss {
+      width: 250px;
+      height: 50px;
+      background-color: #f2f2f2;
+      border: 1px solid #ccc;
+      margin-top: -100px;
+      margin-left: 600px;
+      padding: 18px;
+    }
+    
+    .blockNon {
+      width: 250px;
+      height: 50px;
+      background-color: #f2f2f2;
+      border: 1px solid #ccc;
+      margin-top: -350px;
+      margin-left: 600px;
+      padding: 18px;
+    }
+    
+    .connectingLineGrid {
+      width: 235px;
+      height: 2px; 
+      background-color: #515151;
+      position: relative;
+      left: 65px;
+      bottom: -25px;
+    }
+    .arrowGrid {
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 10px 10px 10px;
+      border-color: transparent transparent #515151 transparent;
+      transform: rotate(90deg);
+      position: relative;
+      left: 225px;
+      top: 19px;
+    }
+    .connectingLineBatt {
+      width: 150px;
+      height: 2px; 
+      background-color: #515151;
+      position: relative;
+      left: 150px;
+      bottom: 30px;
+    }
+    .arrowBatt {
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 10px 10px 10px;
+      border-color: transparent transparent #515151 transparent;
+      transform: rotate(90deg);
+      position: relative;
+      left: 225px;
+      top: -36px;
+    }
+    
+    .connectingLineAux {
+      width: 150px;
+      height: 2px; 
+      background-color: #515151;
+      position: relative;
+      left: 150px;
+      bottom: 30px;
+      
+    }
+    .arrowAux {
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 10px 10px 10px;
+      border-color: transparent transparent #515151 transparent;
+      transform: rotate(90deg);
+      position: relative;
+      left: 225px;
+      top: -36px;
+    }
+    .connectingLinePV {
+      width: 150px;
+      height: 2px; 
+      background-color: #515151;
+      position: relative;
+      left: 150px;
+      bottom: 25px;
+    }
+    .arrowPV {
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 10px 10px 10px;
+      border-color: transparent transparent #515151 transparent;
+      transform: rotate(90deg);
+      position: relative;
+      left: 225px;
+      top: -31px;
+    }
+    
+    .connectingLineNonEss {
+      width: 478px;
+      height: 2px; 
+      background-color: #515151;
+      position: relative;
+      left: 122px;
+      bottom: 25px;
+    }
+    .arrowNonEss {
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 10px 10px 10px;
+      border-color: transparent transparent #515151 transparent;
+      transform: rotate(90deg);
+      position: relative;
+      left: 500px;
+      top: -31px;
+    }
+    .connectingLineEss {
+      width: 150px;
+      height: 2px; 
+      background-color: #515151;
+      position: relative;
+      left: 450px;
+      bottom: 25px;
+    }
+    .arrowEss {
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 10px 10px 10px;
+      border-color: transparent transparent #515151 transparent;
+      transform: rotate(90deg);
+      position: relative;
+      left: 500px;
+      top: -31px;
+    }
+    .lineV {
+      width: 40px;
+      height: 2px; 
+      background-color: #515151;
+      position: relative;
+      left: 45px;
+      bottom: -8px;
+      transform: rotate(90deg);
+    }
+  </style>
+</head>
+<body>
+  <div class="flowchart">
+    <!---- The Grid ------------------------------------------------------------------------>
+    <div *ngFor="let dataKeyData of data; let i=index">
+        <div *ngIf="dataKeyData.dataKey.label == 'gridCT_A_P'">
+            <div *ngIf="dataKeyData.data[0] && dataKeyData.data[0][1] == 0">
+                <div class="blockGrid" style="background-color: grey;">
+                    Grid: {{dataKeyData.data[0] && dataKeyData.data[0][1]}}
+                </div>
+                <div class="lineV" style="background-color: grey;"></div>
+                <div class="connectingLineGrid" style="background-color: grey;"></div>
+                <div class="arrowGrid" style="border-color: transparent transparent grey transparent;"></div>
+            </div>
+            <div *ngIf="dataKeyData.data[0] && dataKeyData.data[0][1] > 0">
+                <div class="blockGrid" style="background-color: green;">
+                    Grid: {{dataKeyData.data[0] && dataKeyData.data[0][1]}}
+                </div>
+                <div class="lineV" style="background-color: green;"></div>
+                <div class="connectingLineGrid" style="background-color: green;"></div>
+                <div class="arrowGrid" style="border-color: transparent transparent green transparent;"></div>
+            </div>
+            <div *ngIf="dataKeyData.data[0] && dataKeyData.data[0][1] < 0">
+                <div class="blockGrid" style="background-color: orange;">
+                    Grid: {{dataKeyData.data[0] && dataKeyData.data[0][1]}}
+                </div>
+                <div class="lineV" style="background-color: orange;"></div>
+                <div class="connectingLineGrid" style="background-color: orange;"></div>
+                <div class="arrowGrid" style="border-color: transparent transparent orange transparent; transform: rotate(270deg);"></div>
+            </div>
+        </div>
+    </div>
+
+     <!---- The Battery ------------------------------------------------------------------------>
+    <div *ngFor="let dataKeyData of data; let i=index">
+        <div *ngIf="dataKeyData.dataKey.name === '2301120383_bat_P'">
+            <div *ngIf="dataKeyData.data[0] && dataKeyData.data[0][1] == 0">
+                <div class="blockBatt" style="background-color: grey;">
+                    Batt: {{dataKeyData.data[0] && dataKeyData.data[0][1]}}
+                </div>
+                <div class="connectingLineBatt" style="background-color: grey;"></div>
+                <div class="arrowBatt" style="border-color: transparent transparent grey transparent;"></div>
+                
+            </div>
+            <div *ngIf="dataKeyData.data[0] && dataKeyData.data[0][1] > 0">
+                <div class="blockBatt" style="background-color: green;">
+                    Batt: {{dataKeyData.data[0] && dataKeyData.data[0][1]}}
+                </div>
+                <div class="connectingLineBatt" style="background-color: green;"></div>
+                <div class="arrowBatt" style="border-color: transparent transparent green transparent;"></div>
+            </div>
+            <div *ngIf="dataKeyData.data[0] && dataKeyData.data[0][1] < 0">
+                <div class="blockBatt" style="background-color: orange;">
+                    Batt: {{dataKeyData.data[0] && dataKeyData.data[0][1]}}
+                </div>
+                <div class="connectingLineBatt" style="background-color: orange;"></div>
+                <div class="arrowBatt" style="border-color: transparent transparent orange transparent; transform: rotate(270deg);"></div>
+            </div>
+        </div>
+    </div>
+    
+     <!---- The Aux ------------------------------------------------------------------------>
+    <div *ngFor="let dataKeyData of data; let i=index">
+        <div *ngIf="dataKeyData.dataKey.name == '2301120383_aux_P_tot'">
+            <div *ngIf="dataKeyData.data[0] && dataKeyData.data[0][1] == 0">
+                <div class="blockAux" style="background-color: grey;">
+                    AUX: {{dataKeyData.data[0] && dataKeyData.data[0][1]}}
+                </div>
+                <div class="connectingLineAux" style="background-color: grey;"></div>
+                <div class="arrowAux" style="border-color: transparent transparent grey transparent;"></div>
+            </div>
+            <div *ngIf="dataKeyData.data[0] && dataKeyData.data[0][1] > 0">
+                <div class="blockAux" style="background-color: green;">
+                    AUX: {{dataKeyData.data[0] && dataKeyData.data[0][1]}}
+                </div>
+                <div class="connectingLineAux" style="background-color: green;"></div>
+                <div class="arrowAux" style="border-color: transparent transparent green transparent;"></div>
+            </div>
+            <div *ngIf="dataKeyData.data[0] && dataKeyData.data[0][1] < 0">
+                <div class="blockAux" style="background-color: orange;">
+                    AUX: {{dataKeyData.data[0] && dataKeyData.data[0][1]}}
+                </div>
+                <div class="connectingLineAux" style="background-color: orange;"></div>
+                <div class="arrowAux" style="border-color: transparent transparent orange transparent; transform: rotate(270deg);"></div>
+            </div>
+        </div>
+    </div>
+    
+ <!---- The PV ------------------------------------------------------------------------>    
+    
+    <div *ngFor="let dataKeyData of data; let i=index">
+        <div *ngIf="dataKeyData.dataKey.name == '2301120383_aux_P_tot'">
+            <div *ngIf="dataKeyData.data[0] && dataKeyData.data[0][1] == 0">
+                <div class="blockPV" style="background-color: grey;">
+                    PV: {{dataKeyData.data[0] && dataKeyData.data[0][1]}}
+                </div>
+                <div class="connectingLinePV" style="background-color: grey;"></div>
+                 <div class="arrowPV" style="border-color: transparent transparent grey transparent;"></div>
+            </div>
+            <div *ngIf="dataKeyData.data[0] && dataKeyData.data[0][1] > 0">
+                <div class="blockPV" style="background-color: green;">
+                    PV: {{dataKeyData.data[0] && dataKeyData.data[0][1]}} 
+                </div>
+                <div class="connectingLinePV" style="background-color: green;"></div>
+                 <div class="arrowPV" style="border-color: transparent transparent green transparent;"></div>
+            </div>
+            <div *ngIf="dataKeyData.data[0] && dataKeyData.data[0][1] < 0">
+                <div class="blockPV" style="background-color: orange;">
+                    PV: {{dataKeyData.data[0] && dataKeyData.data[0][1]}} 
+                </div>
+                <div class="connectingLinePV" style="background-color: orange;"></div>
+                <div class="arrowPV" style="border-color: transparent transparent orange transparent; transform: rotate(270deg);"></div>
+            </div>
+        </div>
+    </div> 
+    
+  <!---- The Inverter Block ------------------------------------------------------------------------>   
+    <div class="blockInv">
+        Inverter:
+    </div>
+    
+    
+ <!---- The Essential loads ------------------------------------------------------------------------>
+ 
+    <div *ngFor="let dataKeyData of data; let i=index">
+        <div *ngIf="dataKeyData.dataKey.name == '2301120383_out_P_tot'">
+            <div *ngIf="dataKeyData.data[0] && dataKeyData.data[0][1] == 0">
+                <div class="blockEss" style="background-color: grey;">
+                    Ess Load: {{dataKeyData.data[0] && dataKeyData.data[0][1]}}
+                </div>
+                <div class="connectingLineEss" style="background-color: grey;"></div>
+                 <div class="arrowEss" style="border-color: transparent transparent grey transparent;"></div>
+            </div>
+            <div *ngIf="dataKeyData.data[0] && dataKeyData.data[0][1] > 0">
+                <div class="blockEss" style="background-color: green;">
+                    Ess Load: {{dataKeyData.data[0] && dataKeyData.data[0][1]}}
+                </div>
+                <div class="connectingLineEss" style="background-color: green;"></div>
+                 <div class="arrowEss" style="border-color: transparent transparent green transparent;"></div>
+            </div>
+            <div *ngIf="dataKeyData.data[0] && dataKeyData.data[0][1] < 0">
+                <div class="blockEss" style="background-color: orange;">
+                    Ess Load: {{dataKeyData.data[0] && dataKeyData.data[0][1]}}
+                </div>
+                <div class="connectingLineEss" style="background-color: orange;"></div>
+                <div class="arrowEss" style="border-color: transparent transparent red transparent; transform: rotate(270deg);"></div>
+            </div>
+        </div>
+    </div>
+
+  <!---- The Non-Essential loads ------------------------------------------------------------------------>  
+  
+    <div *ngFor="let dataKeyData of data; let i=index">
+        <div *ngIf="dataKeyData.dataKey.name == '2301120383_gridCT_B_P'">
+            <div *ngIf="dataKeyData.data[0] && dataKeyData.data[0][1] == 0">
+                <div class="blockNon" style="background-color: grey;">
+                    Non-Ess Load: {{dataKeyData.data[0] && dataKeyData.data[0][1]}}
+                </div>
+                <div class="connectingLineNonEss" style="background-color: grey;"></div>
+                 <div class="arrowNonEss" style="border-color: transparent transparent grey transparent;"></div>
+            </div>
+            <div *ngIf="dataKeyData.data[0] && dataKeyData.data[0][1] > 0">
+                <div class="blockNon" style="background-color: green;">
+                    Non-Ess Load: {{dataKeyData.data[0] && dataKeyData.data[0][1]}}
+                </div>
+                <div class="connectingLineNonEss" style="background-color: green;"></div>
+                 <div class="arrowNonEss" style="border-color: transparent transparent green transparent;"></div>
+            </div>
+            <div *ngIf="dataKeyData.data[0] && dataKeyData.data[0][1] < 0">
+                <div class="blockNon" style="background-color: orange;">
+                    Non-Ess Load: {{dataKeyData.data[0] && dataKeyData.data[0][1]}}
+                </div>
+                <div class="connectingLineNonEss" style="background-color: orange;"></div>
+                <div class="arrowNonEss" style="border-color: transparent transparent red transparent; transform: rotate(270deg);"></div>
+            </div>
+        </div>
+    </div>
+    
+  </div>
+</body>
+</html>

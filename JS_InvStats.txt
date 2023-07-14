@@ -1,0 +1,8 @@
+self.onInit = function() {
+  self.ctx.$scope.datasources = self.ctx.defaultSubscription.datasources;
+  self.ctx.$scope.data = self.ctx.defaultSubscription.data;
+
+};
+self.onDataUpdated = function() {
+    self.ctx.detectChanges();
+}
